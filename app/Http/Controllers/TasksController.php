@@ -50,7 +50,7 @@ class TasksController extends Controller
         ]);
         
         $task = new Task;
-        $tasks->status = $request->status;
+        $task->status = $request->status;
         $task->content = $request->content;
         $task->save();
         
