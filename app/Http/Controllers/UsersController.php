@@ -21,7 +21,7 @@ class UsersController extends Controller
     {
         $user = User::find($id);
 
-        return view('users.show', [
+        return view('tasks.index', [
             'user' => $user,
         ]);
     }

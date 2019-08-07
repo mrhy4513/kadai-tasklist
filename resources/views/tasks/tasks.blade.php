@@ -1,16 +1,29 @@
-<ul class="list-unstyled">
-    @foreach ($tasks as $task)
-        <li class="media mb-3">
-            <img class="mr-2 rounded" src="{{ Gravatar::src($task->user->email, 50) }}" alt="">
-            <div class="media-body">
-                <div>
-                    {!! link_to_route('users.show', $task->user->name, ['id' => $task->user->id]) !!} <span class="text-muted">posted at {{ $micropost->created_at }}</span>
-                </div>
-                <div>
-                    <p class="mb-0">{!! nl2br(e($task->content)) !!}</p>
-                </div>
-            </div>
-        </li>
-    @endforeach
-</ul>
-{{ $tasks->render('pagination::bootstrap-4') }}
+@extends('layouts.app')
+
+@section('content')
+
+<h1>タスク一覧</h1>
+
+   
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>ステータス</th>
+                    <th>タスク</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($tasks as $task)
+                <tr>
+                    <td>{!! link_to_route('tasks.show', $task->id, ['id' => $task->id]) !!}</td>
+                    <td>{{ $task->status }}</td>
+                    <td>{{ $task->content }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    
+      {!! link_to_route('tasks.create', '新規タスクの登録', [], ['class' => 'btn btn-primary']) !!}
+  
+@endsection

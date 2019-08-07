@@ -4,7 +4,7 @@
 
 <h1>タスク一覧</h1>
 
-    @if (count($tasks) > 0)
+   
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -23,7 +23,11 @@
                 @endforeach
             </tbody>
         </table>
-    @endif
+   <div class="col-sm-8">
+               
+                    @include('tasks.tasks', ['tasks' => $tasks])
+                
+            </div>
     
       {!! link_to_route('tasks.create', '新規タスクの登録', [], ['class' => 'btn btn-primary']) !!}
   

@@ -15,13 +15,29 @@ class TasksController extends Controller
      */
     public function index()
     {
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $tasks = Task::all();
+            
+            $data = [
+                'user' => $user,
+                'tasks' => $user->tasks,
+            ];
+        }
+        
+        return view('tasks.tasks', $data);
+    }
+    
+    /**
+    {
         $tasks = Task::all();
 
         return view('tasks.index', [
             'tasks' => $tasks,
         ]);
     }
-
+*/
     /**
      * Show the form for creating a new resource.
      *
@@ -35,6 +51,7 @@ class TasksController extends Controller
             'task' => $task,
         ]);
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -49,12 +66,28 @@ class TasksController extends Controller
             'content' => 'required|max:191',
         ]);
         
-        $task = new Task;
+        $request->user()->tasks()->create([
+            'content' => $request->content,
+            'status' => $request->status,
+        ]);
+        
+    /**    $task = new Task;
         $task->status = $request->status;
         $task->content = $request->content;
         $task->save();
+    */   
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $tasks = Task::all();
+            
+            $data = [
+                'user' => $user,
+                'tasks' => $user->tasks,
+            ];
+        }
         
-        return redirect('/');
+        return view('tasks.tasks', $data);
     }
 
     /**
@@ -106,7 +139,18 @@ class TasksController extends Controller
         $task->content = $request->content;
         $task->save();
 
-        return redirect('/');
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $tasks = Task::all();
+            
+            $data = [
+                'user' => $user,
+                'tasks' => $user->tasks,
+            ];
+        }
+        
+        return view('tasks.tasks', $data);
     }
 
     /**
@@ -120,6 +164,17 @@ class TasksController extends Controller
         $task = Task::find($id);
         $task->delete();
 
-        return redirect('/');
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $tasks = Task::all();
+            
+            $data = [
+                'user' => $user,
+                'tasks' => $user->tasks,
+            ];
+        }
+        
+        return view('tasks.tasks', $data);
     }
 }
