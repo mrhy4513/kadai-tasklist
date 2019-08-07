@@ -71,11 +71,6 @@ class TasksController extends Controller
             'status' => $request->status,
         ]);
         
-    /**    $task = new Task;
-        $task->status = $request->status;
-        $task->content = $request->content;
-        $task->save();
-    */   
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
