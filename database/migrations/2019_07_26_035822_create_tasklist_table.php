@@ -17,10 +17,13 @@ class CreateTasklistTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->string('content');
+            $table->string('status');
             $table->timestamps();
-            
+
             // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users');
+            
+            
         });
     }
 
